@@ -10,9 +10,26 @@
     "styles"
   ],
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch",
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build",
+    "build:components": "tsc",
     "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@storybook/react": "^8.0.0",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "keywords": [
     "design-system",
@@ -20,5 +37,6 @@
     "components",
     "luffu",
     "health-coaching"
-  ]
+  ],
+  "license": "MIT"
 }
