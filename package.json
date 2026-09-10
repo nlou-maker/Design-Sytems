@@ -7,7 +7,7 @@
     "systems/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace @luffu/design-system",
-    "build": "npm run build --workspace @luffu/design-system"
+    "dev": "echo 'No buildable system yet — see systems/ vs references/ in README.md'",
+    "build": "echo 'No buildable system yet — see systems/ vs references/ in README.md'"
   }
 }

@@ -4,13 +4,24 @@ Multi-brand design systems monorepo (npm workspaces). Each brand lives in `syste
 
 Repo note: the org-level repo name is spelled `Design-Sytems` (typo, kept as-is — renaming it breaks the remote).
 
+## Two kinds of folder: `systems/` vs `references/`
+
+**`systems/<name>/`** — real, usable design systems for brands the user actually owns. Built out fully, synced to Claude Design, safe to build products from.
+
+**`references/<name>/`** — brand material that was studied or extracted but does **not** belong to the user (e.g. Luffu — pulled from a live site, `luffu.com`, with a licensed typeface that isn't hers). Never synced to Claude Design. Never used as-is for real work. Every folder here carries a `NOT_MY_BRAND.md` explaining why.
+
+Which one a new brand goes into is decided by the provenance check below — **before** creating either folder, not after.
+
 ## Adding a new design system
 
 The user drops in raw spec files for a brand — typically some subset of: a `DESIGN.md`-style brand doc, `tokens.json`, `variables.css`, a Tailwind `theme.css`. Sometimes that's all that exists yet; that's expected, not a blocker.
 
-1. Create `systems/<name>/` and commit the raw spec files first, verbatim, before writing any component code.
-2. **Read the whole spec before building anything.** Pull out: the real color tokens, the type scale with actual font names, spacing scale, the **Components** section (this defines what's actually asked for — don't invent beyond it), and any Do's/Don'ts.
-3. **Provenance check, every time, before treating anything as the user's own brand:** if `tokens.json` carries an extraction/scrape marker (e.g. an `$extensions` block naming a source URL and an `extractedAt` timestamp), or a named typeface looks like a commercial/licensed family (ABC-prefixed, Whyte, GT-, Söhne, Canela, etc.), stop and ask the user directly: is this their brand, or reference material they were studying? Do not silently build out someone else's brand identity as house style. This happened on the Luffu system — the tokens came from a live-site extraction — and it was worth surfacing before going further.
+1. **Provenance check first, before creating any folder:** if `tokens.json` carries an extraction/scrape marker (e.g. an `$extensions` block naming a source URL and an `extractedAt` timestamp), or a named typeface looks like a commercial/licensed family (ABC-prefixed, Whyte, GT-, Söhne, Canela, etc.), stop and ask the user directly: is this their brand, or reference material they were studying?
+   - **Their brand** → `systems/<name>/`, full workflow below.
+   - **Not their brand / unsure** → `references/<name>/`, plus a `NOT_MY_BRAND.md` in that folder stating what it is and why it's not to be used as-is. Do not build it out further than what's needed to study the pattern — no full component set, no font sourcing, no Storybook polish. Do not add it to root `package.json` workspaces (`systems/*` already excludes it structurally — keep it that way).
+   - This happened on Luffu: it was built out fully as if it were the user's brand before the provenance check ran. Don't repeat that — check first, build second.
+2. For a confirmed `systems/<name>/` entry: create the folder and commit the raw spec files first, verbatim, before writing any component code.
+3. **Read the whole spec before building anything.** Pull out: the real color tokens, the type scale with actual font names, spacing scale, the **Components** section (this defines what's actually asked for — don't invent beyond it), and any Do's/Don'ts.
 
 ## Which components to build — "necessary for everyday use," not the whole spec
 
