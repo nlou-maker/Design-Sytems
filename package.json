@@ -1,0 +1,14 @@
+{
+  "name": "design-systems",
+  "version": "1.0.0",
+  "description": "Multi-brand design systems for Healthy with Naudia and AI consulting projects",
+  "private": true,
+  "workspaces": [
+    "systems/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@luffu/design-system",
+  "version": "1.0.0",
+  "description": "Luffu design system — warm, intimate aesthetic for Healthy with Naudia",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "tokens",
+    "styles"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "design-system",
+    "tokens",
+    "components",
+    "luffu",
+    "health-coaching"
+  ]
+}
