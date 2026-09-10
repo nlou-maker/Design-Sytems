@@ -1,12 +1,11 @@
 import React from 'react';
-import '../styles/variables.css';
 
-interface FooterLink {
+export interface FooterLink {
   label: string;
   href: string;
 }
 
-interface FooterProps {
+export interface FooterProps {
   links?: FooterLink[];
   social?: FooterLink[];
   copyright?: string;

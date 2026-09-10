@@ -1,8 +1,7 @@
 import React from 'react';
-import '../styles/variables.css';
 import { Button } from './Button';
 
-interface NavigationProps {
+export interface NavigationProps {
   logo?: string;
   links?: { label: string; href: string }[];
   cta?: { label: string; href: string };

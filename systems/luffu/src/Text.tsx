@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styles/variables.css';
 
-interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   size?: 'sm' | 'base' | 'lg';
   color?: 'primary' | 'secondary' | 'tertiary';
   children: React.ReactNode;
@@ -12,6 +11,7 @@ export const Text: React.FC<TextProps> = ({
   color = 'primary',
   children,
   className = '',
+  style,
   ...props
 }) => {
   const sizeMap = {
@@ -34,8 +34,9 @@ export const Text: React.FC<TextProps> = ({
         ...sizeMap[size],
         color: colorMap[color],
         fontWeight: 400,
-        lineHeight: size === 'lg' ? 1.2 : 1.2,
+        lineHeight: 1.2,
         margin: 0,
+        ...style,
       }}
       {...props}
     >

@@ -1,16 +1,13 @@
-// Components
-export { Button } from './Button';
-export { Card } from './Card';
-export { Heading } from './Heading';
-export { Text } from './Text';
+// Consumers must also import the stylesheet:
+//   import '@luffu/design-system/styles/index.css';
 
-// Sections
-export { Hero } from './Hero';
-export { Navigation } from './Navigation';
-export { Footer } from './Footer';
+export { Button, type ButtonProps } from './Button';
+export { Card, type CardProps } from './Card';
+export { Heading, type HeadingProps } from './Heading';
+export { Text, type TextProps } from './Text';
 
-// Layout
-export { Container } from './Container';
+export { Hero, type HeroProps } from './Hero';
+export { Navigation, type NavigationProps } from './Navigation';
+export { Footer, type FooterProps, type FooterLink } from './Footer';
 
-// Re-export styles
-import '../styles/variables.css';
+export { Container, type ContainerProps } from './Container';

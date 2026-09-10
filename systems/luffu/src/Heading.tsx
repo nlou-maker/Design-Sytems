@@ -1,40 +1,59 @@
 import React from 'react';
-import '../styles/variables.css';
 
-interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
+export interface HeadingProps extends React.HTMLAttributes<HTMLHeadingElement> {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   children: React.ReactNode;
 }
 
+const sizeStyles: Record<'sm' | 'md' | 'lg' | 'xl', React.CSSProperties> = {
+  xl: {
+    fontFamily: 'var(--font-abc-arizona-sans)',
+    fontSize: 'var(--text-body-lg)',
+    letterSpacing: 'var(--tracking-body-lg)',
+    lineHeight: 1.2,
+  },
+  sm: {
+    fontFamily: 'var(--font-abc-arizona-flare)',
+    fontSize: 'var(--text-heading-sm)',
+    letterSpacing: 'var(--tracking-heading-sm)',
+    lineHeight: 1,
+  },
+  md: {
+    fontFamily: 'var(--font-abc-arizona-flare)',
+    fontSize: 'var(--text-heading)',
+    letterSpacing: 'var(--tracking-heading)',
+    lineHeight: 1,
+  },
+  lg: {
+    fontFamily: 'var(--font-abc-arizona-flare)',
+    fontSize: 'var(--text-display)',
+    letterSpacing: 'var(--tracking-display)',
+    lineHeight: 1,
+  },
+};
+
 export const Heading: React.FC<HeadingProps> = ({
   level = 2,
   size = 'md',
   children,
-  className = '',
+  style,
   ...props
 }) => {
-  const sizeMap = {
-    sm: { fontSize: '40px', letterSpacing: '-1.24px', font: 'var(--font-abc-arizona-flare)' },
-    md: { fontSize: '48px', letterSpacing: '-2.02px', font: 'var(--font-abc-arizona-flare)' },
-    lg: { fontSize: '64px', letterSpacing: '-3.2px', font: 'var(--font-abc-arizona-flare)' },
-    xl: { fontSize: '20px', letterSpacing: '-0.32px', font: 'var(--font-abc-arizona-sans)' },
-  };
+  const Tag = `h${level}` as React.ElementType;
 
-  const headingStyle = {
-    ...sizeMap[size],
-    color: 'var(--color-graphite)',
-    fontFamily: sizeMap[size].font,
-    fontWeight: 400,
-    lineHeight: 1,
-    margin: 0,
-  };
-
-  const Comp = `h${level}` as keyof JSX.IntrinsicElements;
-
-  return React.createElement(
-    Comp,
-    { className, style: headingStyle, ...props },
-    children
+  return (
+    <Tag
+      style={{
+        color: 'var(--color-graphite)',
+        fontWeight: 400,
+        margin: 0,
+        ...sizeStyles[size],
+        ...style,
+      }}
+      {...props}
+    >
+      {children}
+    </Tag>
   );
 };

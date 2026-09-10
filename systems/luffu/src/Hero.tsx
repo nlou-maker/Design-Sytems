@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styles/variables.css';
 
-interface HeroProps {
+export interface HeroProps {
   image?: React.ReactNode;
   headline: string;
   subheadline?: string;

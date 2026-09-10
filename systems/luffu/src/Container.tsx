@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styles/variables.css';
 
-interface ContainerProps {
+export interface ContainerProps {
   children: React.ReactNode;
   background?: 'parchment' | 'linen' | 'white';
   padding?: 'sm' | 'md' | 'lg';

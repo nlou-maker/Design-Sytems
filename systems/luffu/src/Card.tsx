@@ -1,7 +1,6 @@
 import React from 'react';
-import '../styles/variables.css';
 
-interface CardProps {
+export interface CardProps {
   children: React.ReactNode;
   className?: string;
   image?: React.ReactNode;
@@ -20,7 +19,7 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={`rounded-md overflow-hidden ${className}`}
+      className={className}
       style={{
         backgroundColor: 'var(--color-pressed-cotton)',
         borderRadius: '6px',
