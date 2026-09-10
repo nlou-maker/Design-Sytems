@@ -12,7 +12,15 @@ If you're a Claude Code session adding a new brand, see `CLAUDE.md` for the full
 
 ## Systems
 
-*(none yet — see References below)*
+### Hearth
+Original design system for Healthy with Naudia — the user's actual brand. Inspired by Luffu's warm, editorial mood; built with entirely original tokens, typography, and layout.
+
+- **Theme:** Light, warm terracotta-and-oat aesthetic
+- **Palette:** Oat (#F7F2E7), Bark (#2E2A24), Ember (#9A4B32)
+- **Typography:** Fraunces (display), Work Sans (body/UI) — both free, properly licensed
+- **Status:** 8 components built and verified (Button, Card, Heading, Text, Hero, Navigation, Footer, Container). Not yet synced to Claude Design.
+
+See [systems/hearth](./systems/hearth) for full documentation.
 
 ## References
 
