@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Penline Dark — Design System</title>
+
+<style>
+  /* ============================================================
+     PENLINE DARK — fixed-theme design system.
+     This file always renders dark. There is no light-mode media
+     query and no data-theme switch by design — that separation
+     now lives in the sibling file, Penline Light.
+     ============================================================ */
+  :root{
+    --paper: #1E1E1E;
+    --paper-alt: #272727;
+    --paper-hi: #2B2B2B;
+    --ink: #EDEDED;
+    --graphite: #B7B7B7;
+    --graphite-soft: #8A8A8A;
+    --hatch: #333333;
+    --hatch-line: #444444;
+    --line: #EDEDED;
+    --signal: #FF6B52;
+    --signal-ink: #FFAA98;
+    --signal-tint: #3A2420;
+    --shadow: rgba(0,0,0,0.55);
+
+    --font-display: "Segoe Print", "Bradley Hand", "Chalkboard SE", "Comic Sans MS", cursive;
+    --font-body: "Avenir Next", "Century Gothic", "Futura", -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+    --sp-6: 32px; --sp-7: 48px; --sp-8: 64px; --sp-9: 96px;
+
+    --stroke-thin: 1.5px; --stroke-reg: 2.25px; --stroke-bold: 3.25px;
+    --radius-sm: 6px; --radius-md: 14px; --radius-lg: 26px; --radius-pill: 999px;
+    --transition: 150ms ease;
+  }
+
+  *{ box-sizing:border-box; }
+  @media (prefers-reduced-motion: reduce){ *{ transition-duration:0.001ms !important; } }
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--font-body); font-size:16px; line-height:1.6;
+    background-image: radial-gradient(var(--hatch-line) 0.6px, transparent 0.6px);
+    background-size:22px 22px; background-position:-4px -4px;
+    padding: var(--sp-7) var(--sp-4) var(--sp-8);
+  }
+  h1,h2,h3{ font-weight:400; text-wrap:balance; margin:0; }
+  p{ margin:0; }
+  .wrap{ max-width:880px; margin:0 auto; }
+  .eyebrow{ font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.12em; font-size:0.72rem; color:var(--graphite); }
+  .section-label{ font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.1em; font-size:0.78rem; color:var(--graphite); margin:var(--sp-9) 0 var(--sp-2); }
+  .rule{ border:none; border-top:var(--stroke-reg) solid var(--line); margin:var(--sp-6) 0; width:64px; margin-left:0; }
+  h1{ font-family:var(--font-display); text-transform:uppercase; font-size:clamp(2.3rem,6.4vw,3.2rem); line-height:0.98; margin-top:var(--sp-2); }
+  .subhead{ font-family:var(--font-display); font-size:clamp(1.15rem,2.6vw,1.5rem); margin-top:6px; color:var(--ink); }
+  .subhead span{ color:var(--signal-ink); }
+  .lede{ margin-top:var(--sp-4); color:var(--graphite); max-width:64ch; font-size:1.02rem; }
+  .section h2{ font-family:var(--font-display); text-transform:uppercase; font-size:1.7rem; }
+  .section-note{ margin-top:var(--sp-2); color:var(--graphite); max-width:60ch; font-size:0.95rem; }
+
+  /* Wobble card */
+  svg.defs{ position:absolute; width:0; height:0; }
+  .wobble-card{ position:relative; border-radius:var(--radius-lg); background:var(--paper-hi); }
+  .wobble-card::after{ content:""; position:absolute; inset:0; border-radius:inherit; border:var(--stroke-reg) solid var(--line); filter:url(#ink-wobble); pointer-events:none; }
+
+  /* Token grid */
+  .token-grid{ margin-top:var(--sp-5); display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:var(--sp-4); }
+  .token-card{ border:var(--stroke-thin) solid var(--hatch-line); border-radius:var(--radius-sm); overflow:hidden; background:var(--paper-hi); }
+  .token-swatch{ height:64px; border-bottom:var(--stroke-thin) solid var(--hatch-line); }
+  .token-meta{ padding:10px 12px; }
+  .token-name{ font-family:var(--font-mono); font-size:0.78rem; }
+  .token-hex{ font-family:var(--font-mono); font-size:0.72rem; color:var(--graphite); margin-top:2px; }
+  .token-role{ font-size:0.78rem; color:var(--graphite); margin-top:4px; }
+
+  /* Typography specimens */
+  .type-row{ display:flex; align-items:baseline; gap:var(--sp-5); padding:var(--sp-4) 0; border-top:var(--stroke-thin) dashed var(--hatch-line); flex-wrap:wrap; }
+  .type-row:first-of-type{ border-top:none; }
+  .type-label{ font-family:var(--font-mono); font-size:0.7rem; text-transform:uppercase; color:var(--graphite); width:150px; flex:none; }
+  .type-sample-display{ font-family:var(--font-display); text-transform:uppercase; }
+  .type-sample-body{ font-family:var(--font-body); }
+  .type-sample-mono{ font-family:var(--font-mono); }
+
+  /* Spacing scale */
+  .space-row{ display:flex; align-items:center; gap:var(--sp-4); padding:8px 0; }
+  .space-bar{ height:14px; background:var(--ink); border-radius:3px; }
+  .space-label{ font-family:var(--font-mono); font-size:0.75rem; color:var(--graphite); width:110px; flex:none; }
+
+  /* Stroke / radius */
+  .sample-row{ display:flex; gap:var(--sp-5); flex-wrap:wrap; margin-top:var(--sp-4); }
+  .sample-box{ width:100px; height:70px; background:var(--paper-hi); display:flex; align-items:flex-end; justify-content:center; padding-bottom:8px; font-family:var(--font-mono); font-size:0.68rem; color:var(--graphite); }
+
+  /* Buttons */
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font-family:var(--font-body); font-size:0.95rem; font-weight:600; padding:13px 24px; border-radius:var(--radius-pill); cursor:pointer; transition:background-color var(--transition), border-color var(--transition), color var(--transition), transform var(--transition); text-decoration:none; }
+  .btn-primary{ background:var(--ink); color:var(--paper-hi); border:var(--stroke-reg) solid var(--ink); }
+  .btn-primary:hover{ transform:translateY(-1px); box-shadow:0 6px 14px var(--shadow); }
+  .btn-primary:focus-visible{ outline:var(--stroke-reg) solid var(--signal); outline-offset:3px; }
+  .btn-secondary{ background:transparent; color:var(--ink); border:var(--stroke-reg) solid var(--line); }
+  .btn-secondary:hover{ background:var(--paper-hi); }
+  .btn-secondary:focus-visible{ outline:var(--stroke-reg) solid var(--signal); outline-offset:3px; }
+  .btn-row{ display:flex; gap:var(--sp-3); flex-wrap:wrap; margin-top:var(--sp-4); align-items:center; }
+  .btn-hint{ font-size:0.8rem; color:var(--graphite); }
+
+  /* Sticky notes */
+  .sticky{ position:relative; background:var(--paper-alt); border-radius:5px; padding:14px 16px; box-shadow:0 8px 16px var(--shadow); }
+  .sticky::before{ content:""; position:absolute; top:-9px; left:50%; width:52px; height:16px; background:rgba(120,120,120,0.32); border:1px solid rgba(0,0,0,0.08); transform:translateX(-50%) rotate(-3deg); }
+  .sticky-demo{ width:200px; text-align:center; font-family:var(--font-display); text-transform:uppercase; font-size:0.85rem; line-height:1.3; transform:rotate(-2.5deg); }
+  .sticky-final{ background:var(--signal-tint); border:var(--stroke-reg) solid var(--signal); border-radius:var(--radius-md); padding:var(--sp-6); text-align:center; transform:rotate(-0.6deg); box-shadow:0 10px 22px var(--shadow); max-width:420px; }
+  .sticky-final::before{ background:rgba(255,107,82,0.28); }
+  .sticky-final .eyebrow{ color:var(--signal-ink); }
+  .sticky-final .headline{ font-family:var(--font-display); text-transform:uppercase; font-size:1.3rem; margin-top:var(--sp-2); }
+  .sticky-final .body{ margin-top:var(--sp-3); color:var(--graphite); font-size:0.92rem; }
+  .demo-row{ display:flex; gap:var(--sp-6); flex-wrap:wrap; margin-top:var(--sp-5); align-items:flex-start; }
+
+  /* Code box */
+  .code-box{ border:var(--stroke-reg) solid var(--line); border-radius:var(--radius-md); background:var(--paper); margin-top:var(--sp-4); overflow:hidden; max-width:520px; }
+  .code-box-head{ display:flex; justify-content:space-between; align-items:center; padding:8px 14px; border-bottom:var(--stroke-thin) dashed var(--graphite-soft); }
+  .code-tag{ font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.09em; font-size:0.66rem; color:var(--graphite); }
+  .copy-btn{ display:flex; align-items:center; gap:6px; background:var(--paper-hi); border:var(--stroke-thin) solid var(--graphite-soft); border-radius:var(--radius-pill); padding:4px 11px; font-family:var(--font-mono); font-size:0.66rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--graphite); cursor:pointer; transition:border-color var(--transition), color var(--transition); }
+  .copy-btn:hover{ border-color:var(--line); color:var(--ink); }
+  .copy-btn:focus-visible{ outline:var(--stroke-reg) solid var(--signal); outline-offset:2px; }
+  .copy-btn.copied{ border-color:var(--signal); color:var(--signal-ink); }
+  .code-body{ margin:0; padding:16px; font-family:var(--font-mono); font-size:0.79rem; line-height:1.65; white-space:pre-wrap; color:var(--ink); }
+
+  /* Steps */
+  .step{ display:grid; grid-template-columns:48px 1fr; gap:var(--sp-4); padding:var(--sp-5) 0; border-top:var(--stroke-thin) dashed var(--hatch-line); }
+  .step:first-of-type{ border-top:none; }
+  .step-badge{ width:40px; height:40px; border-radius:50%; border:var(--stroke-bold) solid var(--line); display:flex; align-items:center; justify-content:center; background:var(--paper-hi); font-family:var(--font-display); font-size:1.05rem; }
+  .step h3{ font-family:var(--font-display); text-transform:uppercase; font-size:1.15rem; }
+  .step p{ margin-top:6px; color:var(--graphite); max-width:56ch; font-size:0.95rem; }
+
+  /* Tier chips */
+  .tier-row{ display:flex; flex-direction:column; gap:10px; margin-top:var(--sp-4); max-width:480px; }
+  .tier-chip{ border-radius:var(--radius-sm); padding:12px 16px; border:var(--stroke-reg) solid var(--line); display:flex; flex-wrap:wrap; align-items:baseline; gap:10px; }
+  .tier-chip .t{ font-family:var(--font-display); text-transform:uppercase; font-size:1rem; }
+  .tier-chip .d{ font-size:0.85rem; color:var(--graphite); }
+  .tier-chip.verified{ background:var(--ink); color:var(--paper); }
+  .tier-chip.verified .d{ color:var(--paper-alt); }
+  .tier-chip.needs{ background-image:repeating-linear-gradient(135deg, var(--hatch-line) 0 2px, transparent 2px 10px); background-color:var(--paper-alt); }
+  .tier-chip.unsupported{ background:var(--paper-hi); border-style:dashed; color:var(--graphite); }
+  .tier-chip.unsupported .t{ color:var(--graphite); }
+
+  footer{ max-width:880px; margin:var(--sp-9) auto 0; display:flex; justify-content:space-between; gap:var(--sp-3); flex-wrap:wrap; font-family:var(--font-mono); font-size:0.7rem; color:var(--graphite-soft); border-top:var(--stroke-thin) solid var(--hatch-line); padding-top:var(--sp-5); }
+
+  @media (max-width:600px){
+    body{ padding: var(--sp-8) var(--sp-4) var(--sp-5); }
+    .type-row{ flex-direction:column; gap:6px; }
+    .demo-row{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <filter id="ink-wobble" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.028" numOctaves="2" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <g id="i-copy" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2"/><path d="M5.5 15 V6.5 a2 2 0 0 1 2-2 H15"/></g>
+    <g id="i-check" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5 L6.8 11.5 L12 5"/></g>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <p class="eyebrow">Fixed-theme reference — always dark, no toggle</p>
+  <h1>Penline Dark</h1>
+  <p class="subhead">the <span>always-on</span> dark variant</p>
+  <p class="lede">This file hardcodes the dark palette directly into <code>:root</code> — there's no <code>prefers-color-scheme</code> query and no <code>data-theme</code> attribute to flip. Drop this stylesheet into a page and it will render dark on every device, every time. Its sibling, <strong>Penline Light</strong>, is built the same way in reverse.</p>
+  <hr class="rule">
+
+  <!-- COLOR TOKENS -->
+  <section class="section" id="colors">
+    <p class="section-label">01 — Color tokens</p>
+    <h2>Palette</h2>
+    <p class="section-note">Every color in the system is a CSS custom property. Never hardcode a hex value in a component — reference the token so the whole system can be re-themed from one place.</p>
+    <div class="token-grid">
+      <div class="token-card"><div class="token-swatch" style="background:var(--paper)"></div><div class="token-meta"><div class="token-name">--paper</div><div class="token-hex">#1E1E1E</div><div class="token-role">Page background</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--paper-alt)"></div><div class="token-meta"><div class="token-name">--paper-alt</div><div class="token-hex">#272727</div><div class="token-role">Sticky-note fill</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--paper-hi)"></div><div class="token-meta"><div class="token-name">--paper-hi</div><div class="token-hex">#2B2B2B</div><div class="token-role">Card / sheet surface</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--ink)"></div><div class="token-meta"><div class="token-name">--ink</div><div class="token-hex">#EDEDED</div><div class="token-role">Primary text, borders</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--graphite)"></div><div class="token-meta"><div class="token-name">--graphite</div><div class="token-hex">#B7B7B7</div><div class="token-role">Secondary text (AA-fixed)</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--graphite-soft)"></div><div class="token-meta"><div class="token-name">--graphite-soft</div><div class="token-hex">#8A8A8A</div><div class="token-role">Tertiary text (AA-fixed)</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--hatch-line)"></div><div class="token-meta"><div class="token-name">--hatch-line</div><div class="token-hex">#444444</div><div class="token-role">Texture / dashed rules</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--line)"></div><div class="token-meta"><div class="token-name">--line</div><div class="token-hex">#EDEDED</div><div class="token-role">Structural borders</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--signal)"></div><div class="token-meta"><div class="token-name">--signal</div><div class="token-hex">#FF6B52</div><div class="token-role">Accent (AA-fixed)</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--signal-ink)"></div><div class="token-meta"><div class="token-name">--signal-ink</div><div class="token-hex">#FFAA98</div><div class="token-role">Accent text on tint</div></div></div>
+      <div class="token-card"><div class="token-swatch" style="background:var(--signal-tint)"></div><div class="token-meta"><div class="token-name">--signal-tint</div><div class="token-hex">#3A2420</div><div class="token-role">Callout background</div></div></div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section class="section" id="type">
+    <p class="section-label">02 — Typography</p>
+    <h2>Type system</h2>
+    <p class="section-note">Three families: a hand-lettered display face for headings and playful UI, a humanist sans for body copy, and a monospace for labels/eyebrows/code.</p>
+    <div style="margin-top:var(--sp-4);">
+      <div class="type-row"><span class="type-label">Display / H1</span><span class="type-sample-display" style="font-size:2.4rem;">Tailor your page</span></div>
+      <div class="type-row"><span class="type-label">Display / Subhead</span><span class="type-sample-display" style="font-size:1.4rem; text-transform:none;">to look like the <span style="color:var(--signal-ink)">real thing</span></span></div>
+      <div class="type-row"><span class="type-label">Body</span><span class="type-sample-body" style="font-size:1rem;">The quick brown fox jumps over the lazy dog — 16px body copy at 1.6 line-height.</span></div>
+      <div class="type-row"><span class="type-label">Mono / Eyebrow</span><span class="type-sample-mono" style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--graphite);">A repeatable AI prompt</span></div>
+      <div class="type-row"><span class="type-label">Mono / Code</span><span class="type-sample-mono" style="font-size:0.85rem;">const rule = "accuracy &gt; match score";</span></div>
+    </div>
+  </section>
+
+  <!-- SPACING -->
+  <section class="section" id="spacing">
+    <p class="section-label">03 — Spacing scale</p>
+    <h2>Spacing</h2>
+    <p class="section-note">An 8px-rooted scale (with one 4px half-step). Use these tokens for margin/padding/gap — never a bare pixel value.</p>
+    <div style="margin-top:var(--sp-4);">
+      <div class="space-row"><span class="space-label">--sp-1 · 4px</span><div class="space-bar" style="width:4px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-2 · 8px</span><div class="space-bar" style="width:8px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-3 · 12px</span><div class="space-bar" style="width:12px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-4 · 16px</span><div class="space-bar" style="width:16px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-5 · 24px</span><div class="space-bar" style="width:24px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-6 · 32px</span><div class="space-bar" style="width:32px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-7 · 48px</span><div class="space-bar" style="width:48px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-8 · 64px</span><div class="space-bar" style="width:64px;"></div></div>
+      <div class="space-row"><span class="space-label">--sp-9 · 96px</span><div class="space-bar" style="width:96px;"></div></div>
+    </div>
+  </section>
+
+  <!-- STROKE / RADIUS -->
+  <section class="section" id="stroke-radius">
+    <p class="section-label">04 — Stroke &amp; radius</p>
+    <h2>Borders &amp; corners</h2>
+    <div class="sample-row">
+      <div class="sample-box" style="border:var(--stroke-thin) solid var(--line);">thin · 1.5px</div>
+      <div class="sample-box" style="border:var(--stroke-reg) solid var(--line);">reg · 2.25px</div>
+      <div class="sample-box" style="border:var(--stroke-bold) solid var(--line);">bold · 3.25px</div>
+    </div>
+    <div class="sample-row">
+      <div class="sample-box" style="border:var(--stroke-reg) solid var(--line); border-radius:var(--radius-sm);">sm · 6px</div>
+      <div class="sample-box" style="border:var(--stroke-reg) solid var(--line); border-radius:var(--radius-md);">md · 14px</div>
+      <div class="sample-box" style="border:var(--stroke-reg) solid var(--line); border-radius:var(--radius-lg);">lg · 26px</div>
+      <div class="sample-box" style="border:var(--stroke-reg) solid var(--line); border-radius:var(--radius-pill);">pill · 999px</div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="section" id="buttons">
+    <p class="section-label">05 — Buttons</p>
+    <h2>Buttons</h2>
+    <p class="section-note">Try hovering / tabbing to these — the states are live, not static swatches.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary">Primary action</button>
+      <button class="btn btn-secondary">Secondary action</button>
+      <span class="btn-hint">← hover or Tab-focus to see state transitions (150ms, respects reduced-motion)</span>
+    </div>
+  </section>
+
+  <!-- CARDS & STICKY NOTES -->
+  <section class="section" id="cards">
+    <p class="section-label">06 — Cards &amp; sticky notes</p>
+    <h2>Surfaces</h2>
+    <div class="demo-row">
+      <div class="wobble-card" style="padding:var(--sp-5); width:220px;">
+        <p class="eyebrow">Wobble card</p>
+        <p style="margin-top:6px; font-size:0.9rem; color:var(--graphite);">Hand-drawn border via SVG displacement filter on a ::after pseudo-element.</p>
+      </div>
+      <div class="sticky sticky-demo">A rotated sticky-note callout</div>
+      <div class="sticky-final" style="max-width:260px;">
+        <p class="eyebrow">Eyebrow</p>
+        <p class="headline">Final CTA block</p>
+        <p class="body">Signal-tinted, always slightly rotated.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CODE BOX -->
+  <section class="section" id="code">
+    <p class="section-label">07 — Code / prompt box</p>
+    <h2>Code box</h2>
+    <div class="code-box">
+      <div class="code-box-head"><span class="code-tag">Example</span><button class="copy-btn"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button></div>
+      <pre class="code-body">This box demonstrates the scrollable, copyable code component. Click "Copy" to see the live 1400ms confirmation state.</pre>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section" id="steps">
+    <p class="section-label">08 — Step explainer</p>
+    <h2>Numbered steps</h2>
+    <div style="margin-top:var(--sp-4);">
+      <div class="step"><div class="step-badge">1</div><div><h3>First step</h3><p>Badge + heading + body copy, divided by a dashed rule (the first item has none).</p></div></div>
+      <div class="step"><div class="step-badge">2</div><div><h3>Second step</h3><p>Reuse this pattern for any sequential explainer — onboarding, process, methodology.</p></div></div>
+    </div>
+  </section>
+
+  <!-- TIER CHIPS -->
+  <section class="section" id="tiers">
+    <p class="section-label">09 — Tier / status chips</p>
+    <h2>Weighted chips</h2>
+    <p class="section-note">Three fixed visual weights for ranking confidence, status, or plan tiers.</p>
+    <div class="tier-row">
+      <div class="tier-chip verified"><span class="t">Verified</span><span class="d">highest weight — solid ink fill</span></div>
+      <div class="tier-chip needs"><span class="t">Needs confirmation</span><span class="d">mid weight — diagonal hatch</span></div>
+      <div class="tier-chip unsupported"><span class="t">Unsupported</span><span class="d">lowest weight — dashed outline</span></div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Penline Dark — fixed-theme design system</span>
+    <span>Sibling file: Penline Light</span>
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('.copy-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var box = btn.closest('.code-box');
+      var pre = box.querySelector('.code-body');
+      var text = pre.textContent;
+      var label = btn.querySelector('span');
+      function flash(){
+        btn.classList.add('copied');
+        var prev = label.textContent;
+        label.textContent = 'Copied';
+        setTimeout(function(){ btn.classList.remove('copied'); label.textContent = prev; }, 1400);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(flash).catch(function(){ fallbackCopy(pre); flash(); });
+      } else {
+        fallbackCopy(pre); flash();
+      }
+    });
+  });
+  function fallbackCopy(el){
+    try{
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand('copy');
+      sel.removeAllRanges();
+    }catch(e){}
+  }
+</script>
+
+</body>
+</html>
