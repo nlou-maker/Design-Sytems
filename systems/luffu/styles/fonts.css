@@ -1,0 +1,24 @@
+/*
+ * Stand-in typefaces for Luffu, pending licensed ABC Arizona Sans / Flare.
+ * ABC Arizona is a commercial typeface (ABC Dinamo) — not included here.
+ * These are free, self-hosted substitutes chosen for structural similarity:
+ *   - Instrument Sans  -> stands in for ABC Arizona Sans (UI/body)
+ *   - Playfair Display -> stands in for ABC Arizona Flare (display), per DESIGN.md's own substitute note
+ * Swap by replacing these two @font-face blocks and font files once licensed.
+ */
+
+@font-face {
+  font-family: 'Instrument Sans';
+  src: url('../fonts/instrument-sans-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('../fonts/playfair-display-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
