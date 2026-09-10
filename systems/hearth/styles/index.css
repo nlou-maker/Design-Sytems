@@ -1,0 +1,37 @@
+@import './fonts.css';
+@import './variables.css';
+
+body {
+  background-color: var(--color-oat);
+  color: var(--color-bark);
+  font-family: var(--font-work-sans);
+  font-size: var(--text-body);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-body);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-fraunces);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.1;
+}
+
+a {
+  color: var(--color-ember);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.75;
+}
+
+button {
+  font-family: var(--font-work-sans);
+}

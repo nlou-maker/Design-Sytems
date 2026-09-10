@@ -1,0 +1,22 @@
+/*
+ * Hearth typefaces — Fraunces (display) + Work Sans (body/UI).
+ * Both free, self-hosted, properly licensed (SIL Open Font License via
+ * Google Fonts). Both ship as variable fonts, so one file covers the
+ * whole weight range used here — no per-weight files needed.
+ */
+
+@font-face {
+  font-family: 'Fraunces';
+  src: url('../fonts/fraunces-variable.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Work Sans';
+  src: url('../fonts/work-sans-variable.woff2') format('woff2');
+  font-weight: 400 600;
+  font-style: normal;
+  font-display: swap;
+}
